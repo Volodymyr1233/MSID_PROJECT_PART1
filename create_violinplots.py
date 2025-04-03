@@ -4,23 +4,29 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from read_file import read_file
 
-def create_finStress_acadPress():
-    df = read_file("depr_dataset.csv")[["Depression", "Age", "Gender"]]
-    # df["Financial Stress"] = pd.to_numeric(df["Financial Stress"], errors="coerce")
+df = read_file("depr_dataset.csv")
 
-    sns.catplot(x="Depression", y="Age", data=df, hue="Gender", kind="violin")
+def create_Age_Depression():
+    data = df[["Depression", "Age", "Gender"]]
+    sns.catplot(x="Depression", y="Age", data=data, hue="Gender", kind="violin")
 
-    plt.show()
+    plt.savefig("photos/violinplots/age_depression.png", dpi=300)
+    plt.close()
 
-def create_workHours_CGPA():
-    df = read_file("depr_dataset.csv")[["Work/Study Hours", "Academic Pressure", "Gender"]]
+def create_workHours_finStress():
+    df["Financial Stress"] = pd.to_numeric(df["Financial Stress"], errors="coerce")
+    
+    data = df[["Work/Study Hours", "Financial Stress", "Gender"]]
+
     
 
-    sns.catplot(x="Work/Study Hours", y="Academic Pressure", data=df, hue="Gender", kind="violin")
+    sns.catplot(x="Work/Study Hours", y="Financial Stress", data=data, hue="Gender", kind="violin", height=6, aspect=1.8)
 
-    plt.show()
+    plt.savefig("photos/violinplots/workHours_finStress.png", dpi=300)
+    plt.close()
 
 
 
-create_finStress_acadPress()
-create_workHours_CGPA()
+def execute_create_violinplots():
+    create_Age_Depression()
+    create_workHours_finStress()

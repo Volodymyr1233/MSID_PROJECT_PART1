@@ -1,34 +1,33 @@
 import seaborn as sns
-import pandas as pd
-
 import matplotlib.pyplot as plt
 from read_file import read_file
 
+df = read_file("depr_dataset.csv")
+
 def create_depression():
-    df = read_file("depr_dataset.csv")[["Depression"]]
+    data = df[["Depression"]]
 
-    sns.displot(df, x="Depression")
-    plt.show()
+    sns.displot(data, x="Depression")
+    plt.savefig("photos/histogram/depression.png", dpi=300)
+    plt.close()
 
-def create_work_study():
-    df = read_file("depr_dataset.csv")[["Work/Study Hours"]]
+def create_sleep_duration():
+    data = df[["Sleep Duration"]]
 
-    sns.displot(df, x="Work/Study Hours")
-    plt.show()
+    sns.displot(data, x="Sleep Duration", height=6, aspect=1.8)
+    plt.savefig("photos/histogram/work_study.png", dpi=300)
+    plt.close()
 
 def create_dietary_habbits():
-    df = read_file("depr_dataset.csv")[["Dietary Habits"]]
-
-    sns.displot(df, x="Dietary Habits")
-    plt.show()
-def create_sex():
-    df = read_file("depr_dataset.csv")[["Gender"]]
-
-    sns.displot(df, x="Gender")
-    plt.show()
+    data = df[["Dietary Habits"]]
 
 
-create_depression()
-create_work_study()
-create_dietary_habbits()
-create_sex()
+    sns.displot(data, x="Dietary Habits")
+    plt.savefig("photos/histogram/dietary_habbits.png", dpi=300)
+    plt.close()
+
+
+def execute_histogram():
+    create_depression()
+    create_sleep_duration()
+    create_dietary_habbits()

@@ -4,23 +4,25 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from read_file import read_file
 
-def create_depression():
-    df = read_file("depr_dataset.csv")[["Depression", "Financial Stress"]]
+df = read_file("depr_dataset.csv")
 
+def create_depression_finStress():
     df["Financial Stress"] = pd.to_numeric(df["Financial Stress"], errors="coerce")
+    data = df[["Depression", "Financial Stress"]]
 
-
-    sns.displot(df, x="Financial Stress", hue="Depression",  multiple="stack")
-    plt.show()
+    sns.displot(data, x="Financial Stress", hue="Depression",  multiple="stack")
+    plt.savefig("photos/histogramCond/financial_stress.png", dpi=300)
+    plt.close()
 
 def create_work_hours():
-    df = read_file("depr_dataset.csv")[["Work/Study Hours", "Have you ever had suicidal thoughts ?"]]
+    data = df[["Work/Study Hours", "Have you ever had suicidal thoughts ?"]]
+    sns.displot(data, x="Work/Study Hours", hue="Have you ever had suicidal thoughts ?", multiple="stack")
+
+    plt.savefig("photos/histogramCond/work_study.png", dpi=300)
+    plt.close()
 
 
-    sns.displot(df, x="Work/Study Hours", hue="Have you ever had suicidal thoughts ?", multiple="stack")
-    plt.show()
+def execute_create_diagram_cond():
+    create_depression_finStress()
+    create_work_hours()
 
-
-
-create_depression()
-create_work_hours()

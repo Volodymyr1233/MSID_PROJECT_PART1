@@ -1,22 +1,39 @@
 import seaborn as sns
-import pandas as pd
 
 import matplotlib.pyplot as plt
 from read_file import read_file
 
-def create_Habits_Age():
-    df = read_file("depr_dataset.csv")[["Dietary Habits", "Age", "Gender"]]
+df = read_file("depr_dataset.csv")
 
-    sns.boxplot(x="Dietary Habits", y="Age", data=df, hue="Gender")
+def create_Sleep_Age():
+    data = df[["Sleep Duration", "Age", "Gender"]]
 
-    plt.show()
+    plt.figure(figsize=(12, 6))
+    sns.boxplot(x="Sleep Duration", y="Age", data=data, hue="Gender")
 
-def create_Gender_CGPA():
-    df = read_file("depr_dataset.csv")[["Work/Study Hours", "Study Satisfaction", "Gender"]]
-    sns.boxplot(x="Work/Study Hours", y="Study Satisfaction", data=df, hue="Gender")
+    plt.savefig("photos/boxplots/sleep_age.png", dpi=300)
+    plt.close()
+
+def create_DHabits_Age():
+    data = df[["Dietary Habits", "Age", "Gender"]]
+
+    plt.figure(figsize=(12, 6))
+    sns.boxplot(x="Dietary Habits", y="Age", data=data, hue="Gender")
    
-    plt.show()
+    plt.savefig("photos/boxplots/dhabits_age.png", dpi=300)
+    plt.close()
+    
 
+def create_AcadPress_Depression():
+    data = df[["Academic Pressure", "Depression", "Gender"]]
+    plt.figure(figsize=(12, 6))
 
-create_Habits_Age()
-create_Gender_CGPA()
+    
+    sns.boxplot(x="Depression", y="Academic Pressure", data=data, hue="Gender")
+    plt.savefig("photos/boxplots/acad_press.png", dpi=300)
+    plt.close()
+
+def execute_create_boxplot():
+    create_Sleep_Age()
+    create_DHabits_Age()
+    create_AcadPress_Depression()
